@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Vendor Sales Charts</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Custom font */
+        body {
+            font-family: "Inter", sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 md:p-8">
+
+    <div class="max-w-7xl mx-auto grid grid-cols-1 gap-8">
+
+        <!-- Chart 1: 2026 Projected Monthly Revenue -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">2026 Projected Monthly Revenue</h2>
+            <div class="h-80 md:h-96">
+                <canvas id="monthly2026Chart"></canvas>
+            </div>
+        </div>
+
+        <!-- Chart 2: Annual Revenue Decline -->
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Annual Revenue Decline (2024-2026)</h2>
+            <div class="h-80 md:h-96">
+                <canvas id="annualDeclineChart"></canvas>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Chart 1: 2026 Projected Monthly Revenue ---
+            
+            // Data from your projection
+            const labels2026 = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const data2026 = [549000, 494000, 494000, 395000, 368000, 366000, 358000, 337000, 319000, 318000, 346000, 489000];
+
+            const ctx2026 = document.getElementById('monthly2026Chart').getContext('2d');
+            new Chart(ctx2026, {
+                type: 'bar',
+                data: {
+                    labels: labels2026,
+                    datasets: [{
+                        label: 'Projected Gross Sales ($)',
+                        data: data2026,
+                        backgroundColor: 'rgba(59, 130, 246, 0.6)', // blue-500 with opacity
+                        borderColor: 'rgba(59, 130, 246, 1)', // blue-500
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                // Format Y-axis labels as currency
+                                callback: (value) => `$${(value / 1000).toLocaleString()}k`
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                // Format tooltips as currency
+                                label: (context) => `Sales: $${context.parsed.y.toLocaleString()}`
+                            }
+                        }
+                    }
+                }
+            });
+
+            // --- Chart 2: Annual Revenue Decline ---
+
+            // Data from your business plan summary (Shipped Revenue / Gross Sales)
+            const annualLabels = ['2024 (Actual)', '2025 (Projected)', '2026 (Projected)'];
+            const annualData = [16100000, 8700000, 4760000]; // 16.1M, 8.70M, 4.76M
+
+            const ctxAnnual = document.getElementById('annualDeclineChart').getContext('2d');
+            new Chart(ctxAnnual, {
+                type: 'bar',
+                data: {
+                    labels: annualLabels,
+                    datasets: [{
+                        label: 'Total Gross Sales ($)',
+                        data: annualData,
+                        backgroundColor: [
+                            'rgba(22, 163, 74, 0.6)', // green-600
+                            'rgba(234, 179, 8, 0.6)',  // yellow-500
+                            'rgba(220, 38, 38, 0.6)'   // red-600
+                        ],
+                        borderColor: [
+                            'rgba(22, 163, 74, 1)',
+                            'rgba(234, 179, 8, 1)',
+                            'rgba(220, 38, 38, 1)'
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                // Format Y-axis labels as millions
+                                callback: (value) => `$${(value / 1000000).toLocaleString()}M`
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                // Format tooltips as currency
+                                label: (context) => `Sales: $${context.parsed.y.toLocaleString()}`
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
