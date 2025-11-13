@@ -3,39 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smartliner Shopify Revenue Charts</title>
+    <title>2026 Monthly Sales Projection</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-gray-100 p-8">
-    <div class="container mx-auto">
-        
-    <div class="w-full max-w-4xl mx-auto my-8 p-4 bg-white rounded-lg shadow-md">
-        <h2 class="text-xl font-bold mb-4">2024 Shopify Total Sales by Month (Actual Shopify Revenue)</h2>
-        <canvas id="chart2024" width="800" height="400"></canvas>
+    <div class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+        <h1 class="text-2xl font-bold text-center mb-4">2026 Monthly Projection & Seasonality (+12-13% Growth)</h1>
+        <p class="text-center text-gray-600 mb-6">
+            The 2026 plan targets a total of $10.51M in Gross Sales, recovering from the 2025 decline and seasonality. Projections are based on a 12-13% growth target driven by content recovery and ad efficiencies.
+        </p>
+        <canvas id="salesChart" class="w-full h-96"></canvas>
+        <p class="text-center text-gray-500 mt-4">Avg: $837,083</p>
     </div>
+
     <script>
-        const ctx2024 = document.getElementById('chart2024').getContext('2d');
-        new Chart(ctx2024, {
-            type: 'line',
-            data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: 'Total Sales ($)',
-                    data: [781229.37, 791393.87, 779415.6, 723625.57, 706066.56, 577577.82, 723827.95, 713932.18, 709111.39, 750904.84, 1011164.01, 1458151.62],
-                    borderColor: 'rgb(59, 130, 246)',
-                    tension: 0.1,
-                    fill: false
-                }]
-            },
+        const ctx = document.getElementById('salesChart').getContext('2d');
+        const data = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [{
+                label: 'Monthly Revenue (USD)',
+                data: [828000, 820000, 765000, 675000, 661000, 583000, 677000, 687000, 774000, 805000, 1160000, 1610000],
+                backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                borderColor: 'rgb(59, 130, 246)',
+                borderWidth: 1
+            }]
+        };
+
+        const config = {
+            type: 'bar',
+            data: data,
             options: {
-                responsive: true,
                 scales: {
                     y: {
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Total Sales ($)'
+                            text: 'Monthly Revenue (USD)'
                         },
                         ticks: {
                             callback: function(value) {
@@ -52,7 +56,7 @@
                 },
                 plugins: {
                     legend: {
-                        display: true
+                        display: false
                     },
                     tooltip: {
                         callbacks: {
@@ -63,123 +67,9 @@
                     }
                 }
             }
-        });
+        };
+
+        new Chart(ctx, config);
     </script>
-    
-        
-    <div class="w-full max-w-4xl mx-auto my-8 p-4 bg-white rounded-lg shadow-md">
-        <h2 class="text-xl font-bold mb-4">2025 Shopify Total Sales by Month (Actual Shopify Revenue up to Nov 25)</h2>
-        <canvas id="chart2025" width="800" height="400"></canvas>
-    </div>
-    <script>
-        const ctx2025 = document.getElementById('chart2025').getContext('2d');
-        new Chart(ctx2025, {
-            type: 'line',
-            data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: 'Total Sales ($)',
-                    data: [917929.28, 824923.82, 673427.45, 596588.55, 623206.28, 703121.59, 548596.1, 727910.07, 641851.9, 519878.74, 560870.94, 1500000.00],  // Dec 0 as placeholder; use full projection in plan
-                    borderColor: 'rgb(59, 130, 246)',
-                    tension: 0.1,
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Total Sales ($)'
-                        },
-                        ticks: {
-                            callback: function(value) {
-                                return '$' + value.toLocaleString();
-                            }
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Month'
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: true
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return '$' + context.parsed.y.toLocaleString();
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    </script>
-    
-        
-    <div class="w-full max-w-4xl mx-auto my-8 p-4 bg-white rounded-lg shadow-md">
-        <h2 class="text-xl font-bold mb-4">2026 Shopify Total Sales by Month (Projected Shopify Revenue)</h2>
-        <canvas id="chart2026" width="800" height="400"></canvas>
-    </div>
-    <script>
-        const ctx2026 = document.getElementById('chart2026').getContext('2d');
-        new Chart(ctx2026, {
-            type: 'line',
-            data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: 'Total Sales ($)',
-                    data: [919000, 910000, 849000, 749000, 733000, 647000, 751000, 761000, 859000, 892000, 1290000, 1790000],
-                    borderColor: 'rgb(59, 130, 246)',
-                    tension: 0.1,
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Total Sales ($)'
-                        },
-                        ticks: {
-                            callback: function(value) {
-                                return '$' + value.toLocaleString();
-                            }
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Month'
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: true
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return '$' + context.parsed.y.toLocaleString();
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    </script>
-    
-    </div>
 </body>
 </html>
